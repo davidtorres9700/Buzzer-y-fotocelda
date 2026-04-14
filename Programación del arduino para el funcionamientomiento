@@ -2,3 +2,23 @@ programación para el funcionamiento
 
 cuando se detecta algún movimiento en la fotocelda
 y el buzzer reproduce una alarma a la orden de la fotocelda cuando detecta un movimiento
+int sensorReading = 0;
+const int buzzer = 2;
+const int ldr = A0;
+  
+void setup()
+{
+  pinMode(ldr, INPUT);
+  Serial.begin(9600);
+  pinMode(buzzer, OUTPUT);
+}
+
+void loop()
+{
+
+  sensorReading = analogRead(ldr);
+  Serial.println(sensorReading);
+
+  tone(buzzer, 440 * pow(2.0, (constrain(int(map(sensorReading, 0, 1023, 36, 84)), 35, 127) - 57) / 12.0), 1000);
+  delay(10);
+}
